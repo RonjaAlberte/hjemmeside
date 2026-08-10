@@ -1,0 +1,120 @@
+body {
+    margin: 10px;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, 'Times New Roman', Times, serif, sans-serif;
+}
+
+#map {
+    width: 50%;
+    height: 600px;
+    background: #ffffff;
+}
+
+/* Tooltip */
+.city-tooltip {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.city-tooltip strong {
+    font-size: 16px;
+}
+
+
+#foto {
+    text-align: center;
+}
+
+#foto img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    overflow:initial;
+    border-radius: 12%;
+    background-image: cross-fade();
+}
+
+.hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#foto {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items:center;
+    justify-content: left;
+
+    z-index: 1;
+}
+
+#foto img {
+    width: 350px;
+    height: 350px;
+
+    object-fit: cover;
+    overflow:initial;
+    border-radius: 12%;
+
+    transition: width 0.1s linear, height 0.1s linear;
+}
+
+.hero-text {
+    position: sticky;
+    z-index: 2;
+
+    text-align: center;
+    justify-content: left;
+
+    /* Giver teksten en solid baggrund,
+    så billedet kan ligge bagved */
+}
+
+.hero-text h1 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.hero-text h2 {
+    font-family: 'Allura', cursive;
+    font-size: 65px;
+    font-weight: lighter;
+    margin: 0;
+}
+
+
+.menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.menu a {
+    display: inline-block;
+    padding: 10px 20px;
+
+    background-color: #18232d;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 25px;
+
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+
+    transition: 0.2s ease;
+}
+
+.menu a:hover {
+    background-color: #d9573f;
+    transform: translateY(-2px);
+}

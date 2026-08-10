@@ -5,7 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Danmarkskort</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+    
+    <nav class="menu">
+    <a href="./index.html">Forside</a>
+    <a href="./cv.html">CV</a>
+    <a href="./projekter.html">Projekter</a>
+    <a href="./om-mig.html">Om mig</a>
+    </nav>
+
+    <title>Ronja Solberg</title>
+
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Gravelysten Datajournalist</h1>
+            <h2>Ronja Solberg</h2>
+        </div>
+
+        <div id="foto">
+            <img src="images/cv-foto.jpg" alt="Portræt af Ronja">
+        </div>
+
+
+    </section>
 
     <!-- Leaflet -->
     <link
@@ -13,31 +43,25 @@
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     >
 
-    <style>
+    <script>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+        const foto = document.querySelector("#foto img");
 
-        #map {
-            width: 100%;
-            height: 600px;
-            background: #f5f2ed;
-        }
+        window.addEventListener("scroll", () => {
 
-        /* Tooltip */
-        .city-tooltip {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.4;
-        }
+            const scroll = window.scrollY;
 
-        .city-tooltip strong {
-            font-size: 16px;
-        }
+            // Start på 350px
+            // og voks til 900px
+            const size = Math.min(350 + scroll * 0.7, 900);
 
-    </style>
+            foto.style.width = `${size}px`;
+            foto.style.height = `${size}px`;
+
+        });
+
+    </script>
+
 </head>
 
 
@@ -64,10 +88,9 @@
 
 
         // Hent GeoJSON-filen
-        fetch('./map.geojson')
+        fetch('data/map.geojson')
             .then(response => {
 
-                // Tjek om filen faktisk blev fundet
                 if (!response.ok) {
                     throw new Error(
                         `Kunne ikke finde map.geojson (${response.status})`
@@ -86,9 +109,9 @@
                 const danmark = L.geoJSON(data, {
 
                     style: {
-                        fillColor: '#d9d6cf',
+                        fillColor: '#e0eee5',
                         fillOpacity: 1,
-                        color: '#d9d6cf',
+                        color: '#e0eee5',
                         weight: 0
                     }
 
@@ -170,7 +193,7 @@
                         [city.lat, city.lon],
                         {
                             radius: 7,
-                            fillColor: '#e63946',
+                            fillColor: '#82ae85',
                             color: '#ffffff',
                             weight: 2,
                             fillOpacity: 1
