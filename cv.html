@@ -34,25 +34,6 @@
             href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         >
 
-        <script>
-
-            const foto = document.querySelector("#foto img");
-
-            window.addEventListener("scroll", () => {
-
-                const scroll = window.scrollY;
-
-                // Start på 350px
-                // og voks til 900px
-                const size = Math.min(350 + scroll * 0.7, 900);
-
-                foto.style.width = `${size}px`;
-                foto.style.height = `${size}px`;
-
-            });
-
-        </script>
-
         <div id="map"></div>
 
         <!-- Leaflet -->
@@ -133,6 +114,13 @@
                         },
 
                         {
+                            name: "Esbjerg",
+                            lat: 55.4765,
+                            lon: 8.4594,
+                            target: "dr-syd"
+                        },
+
+                        {
                             name: "Odense",
                             lat: 55.4038,
                             lon: 10.4024,
@@ -196,7 +184,7 @@
 
                         // Hop ved hover
                         marker.on('mouseover', function () {
-                            this._path.classList.add('city-hop');
+                            this._path.classList.add('city-hover');
                         });
 
 
@@ -260,10 +248,5 @@
 
     </section>
 
-    <!-- Leaflet -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    >
 
 </body>
