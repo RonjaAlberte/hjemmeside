@@ -1,6 +1,11 @@
-body {
-    margin: 10px;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, 'Times New Roman', Times, serif, sans-serif;
+/*           ---- CV ----           */
+
+.kort-sektion {
+    align-items: center;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    gap: 0px;
 }
 
 #map {
@@ -10,7 +15,6 @@ body {
     margin: 0;
 }
 
-/* Tooltip */
 .city-tooltip {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
@@ -21,9 +25,18 @@ body {
     font-size: 16px;
 }
 
-.city-hover {
-    background-color: #ffffff;
-    transform: translateY(-2px);
+
+
+/*           ---- FORSIDE ----           */
+
+.color-bar {
+    position:sticky, bottom;
+    height: 50px;
+    background-color: #c2e5ce;
+    display: center;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
 #foto {
@@ -57,7 +70,6 @@ h2 {
     text-align: center;
 }
 
-
 .menu {
     position: sticky;
     display: flex;
@@ -87,17 +99,9 @@ h2 {
     transform: translateY(-2px);
 }
 
-.kort-sektion {
-    align-items: center;
-    position: sticky;
-    display: flex;
-    justify-content: center;
-    gap: 0px;
-}
 
 
-
-/*          ---- OM MIG ---- */
+/*          ---- OM MIG ----        */
 
 .hero {
     position: relative;
@@ -109,7 +113,6 @@ h2 {
     justify-content: center;
 }
 
-/* Videoen ligger helt i baggrunden */
 #hero-video {
     position: absolute;
 
@@ -128,7 +131,6 @@ h2 {
     transition: opacity 0.1s linear;
 }
 
-/* Et lille lag mellem video og tekst */
 .hero-overlay {
     position: absolute;
     inset: 0;
@@ -138,7 +140,6 @@ h2 {
     z-index: 1;
 }
 
-/* Teksten ligger ovenpå videoen */
 .hero-text {
     position: relative;
     z-index: 2;

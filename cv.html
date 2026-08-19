@@ -103,13 +103,15 @@
                             name: "Aarhus",
                             lat: 56.1629,
                             lon: 10.2039,
-                            text: "Jeg flyttede til Aarhus for at læse til journalist."
+                            text: "Gravercentret + DMJX",
+                            target: "aarhus"
                         },
 
                         {
                             name: "Aabenraa",
                             lat: 55.0443,
                             lon: 9.4174,
+                            text: "DR - P4 Syd & Esbjerg",
                             target: "dr-syd"
                         },
 
@@ -117,6 +119,7 @@
                             name: "Esbjerg",
                             lat: 55.4765,
                             lon: 8.4594,
+                            text: "DR - P4 Syd & Esbjerg",
                             target: "dr-syd"
                         },
 
@@ -124,28 +127,32 @@
                             name: "Odense",
                             lat: 55.4038,
                             lon: 10.4024,
-                            text: "Den eneste by her på kortet, hvor jeg ikke har boet - men pendlet til i 2,5 år for at læse min kandidat"
+                            text: "Cand. Scient i Data Science",
+                            target: "odense"
                         },
 
                         {
                             name: "København",
                             lat: 55.6761,
                             lon: 12.5683,
-                            text: "Her ligger København."
+                            text: "Fremantle (Strong Productions & Blu)",
+                            target: "strong"
                         },
 
                         {
                             name: "Rønne",
                             lat: 55.1000,
                             lon: 14.7066,
+                            text: "DR Bornholm",
                             target: "dr-bornholm"
                         },
 
                         {
-                            name: "Charlottenlund",
-                            lat: 55.7525,
-                            lon: 12.5760,
-                            text: "Her ligger Charlottenlund."
+                            name: "Hørsholm",
+                            lat: 55.8800,
+                            lon: 12.5000,
+                            text: "Handicaphjælper fra 2015-2019"
+
                         },
 
                         {
@@ -157,8 +164,6 @@
 
                     ];
 
-
-                    // Tilføj byerne
                     cities.forEach(city => {
 
                         const marker = L.circleMarker(
@@ -175,18 +180,38 @@
 
                         // Tooltip ved hover
                         marker.bindTooltip(
-                            `<strong>${city.name}</strong>`,
+                            city.text
+                                ? `<strong>${city.name}</strong><br>${city.text}`
+                                : `<strong>${city.name}</strong>`,
                             {
                                 direction: 'top',
                                 offset: [0, -8]
                             }
                         );
 
-                        // Hop ved hover
+                        // Forstør og skift farve ved hover
                         marker.on('mouseover', function () {
-                            this._path.classList.add('city-hover');
+                            marker.setRadius(9);
+
+                            marker.setStyle({
+                                fillColor: '#ffffff',
+                                color: '#82ae85',
+                                weight: 2,
+                                fillOpacity: 1
+                            });
                         });
 
+                        // Gå tilbage til normal størrelse og farve
+                        marker.on('mouseout', function () {
+                            marker.setRadius(7);
+
+                            marker.setStyle({
+                                fillColor: '#82ae85',
+                                color: '#ffffff',
+                                weight: 2,
+                                fillOpacity: 1
+                            });
+                        });
 
                         // Scroll til relevant sektion ved klik
                         marker.on('click', function () {
@@ -248,5 +273,32 @@
 
     </section>
 
+    <section id="aarhus">
+        <h2>DR Syd</h2>
+
+        <p>
+            Her kan du skrive om dit arbejde på DR Bornholm...
+        </p>
+
+    </section>
+
+
+    <section id="strong">
+        <h2>DR Syd</h2>
+
+        <p>
+            Her kan du skrive om dit arbejde på DR Bornholm...
+        </p>
+
+    </section>
+
+    <section id="odense">
+        <h2>DR Syd</h2>
+
+        <p>
+            Her kan du skrive om dit arbejde på DR Bornholm...
+        </p>
+
+    </section>
 
 </body>
