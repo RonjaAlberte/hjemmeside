@@ -12,7 +12,7 @@
     width: 50%;
     height: 600px;
     background: #ffffff;
-    margin: 0;
+    margin: 30px 0 100px 0;
 }
 
 .city-tooltip {
@@ -25,50 +25,80 @@
     font-size: 16px;
 }
 
-.cv-text h2 {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 20px;
+.timeline {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 60px auto;
+    margin-bottom: 60px auto;
+    margin-left: 300px;
+    margin-right: 300px;
+    padding-left: 180px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 150px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #82ae85;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.timeline-date {
+    position: absolute;
+    right: calc(100% + 54px);
+    top: 7px;
+
+    width: 130px;
+
+    text-align: right;
+    font-size: 14px;
     font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 0;
+    color: #555;
 }
 
-.cv-text h5 {
-    margin-top: 0;
-    margin-bottom: 0;
+.timeline-dot {
+    position: absolute;
+    left: -36px;
+    top: 7px;
+
+    width: 12px;
+    height: 12px;
+
+    background-color: #82ae85;
+    border: 2px solid white;
+    border-radius: 50%;
 }
 
-.cv-text h4 {
-    margin-top: 0;
-    margin-bottom: 0;
+.timeline-content h2 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0 0 5px 0;
+    font-size: 20px;
 }
 
-.cv-text p {
-    margin-bottom: 20px;
+.timeline-content h3 {
+    margin: 0 0 15px 0;
+    font-size: 17px;
+    font-weight: bold;
+    font-style: italic;
 }
 
-#aarhus {
-    width: 100%;
+.timeline-content p {
+    line-height: 1.6;
+    margin: 0;
+    max-width: 700px;
 }
 
-#aarhus h1 {
-    margin-bottom: 30px;
-    font-size: 30px;
-    text-align: center;
-}
 
-.aarhus-jobs {
-    display: flex;
-    position:relative;
-    gap: 20px;
-    justify-items: center;
-    text-align: center;
-}
 
-.dmjx,
-.graver {
-    flex: 1;
-}
+
 
 
 /*           ---- FORSIDE ----           */
