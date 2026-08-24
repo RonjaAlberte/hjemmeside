@@ -14,224 +14,26 @@
 
     <link rel="stylesheet" href="./style.css">
     
-    <nav class="menu">
-    <a href="./index.html">Forside</a>
-    <a href="./cv.html">CV</a>
-    <a href="./projekter.html">Projekter</a>
-    <a href="./om-mig.html">Om mig</a>
-    </nav>
-
     <title>Ronja Solberg</title>
 
-
-    <section class="hero">
-        <div class="hero-text">
-            <h1>Gravelysten Datajournalist</h1>
-            <h2>Ronja Solberg</h2>
-        </div>
-
-        <div id="foto">
-            <img src="images/cv-foto.jpg" alt="Portræt af Ronja">
-        </div>
-
-
-    </section>
-
-    <!-- Leaflet -->
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    >
-
-    <script>
-
-        const foto = document.querySelector("#foto img");
-
-        window.addEventListener("scroll", () => {
-
-            const scroll = window.scrollY;
-
-            // Start på 350px
-            // og voks til 900px
-            const size = Math.min(350 + scroll * 0.7, 900);
-
-            foto.style.width = `${size}px`;
-            foto.style.height = `${size}px`;
-
-        });
-
-    </script>
+    <div id="front">
+        <h1>Datajournalist</h1>
+        <h2>Ronja Solberg</h2>
+    </div>
+    
+    <div id="foto">
+        <img src="images/cv-foto.jpg" alt="Portræt">
+    </div>
 
 </head>
-
-
-<body>
-
-    <div id="map"></div>
-
-
-    <!-- Leaflet -->
-    <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-    </script>
-
-
-    <script>
-
-        // --------------------------------
-        // Opret kort
-        // --------------------------------
-
-        const map = L.map('map', {
-            zoomControl: false
-        });
-
-
-        // Hent GeoJSON-filen
-        fetch('data/map.geojson')
-            .then(response => {
-
-                if (!response.ok) {
-                    throw new Error(
-                        `Kunne ikke finde map.geojson (${response.status})`
-                    );
-                }
-
-                return response.json();
-            })
-
-            .then(data => {
-
-                console.log("GeoJSON indlæst:", data);
-
-
-                // Tegn Danmark
-                const danmark = L.geoJSON(data, {
-
-                    style: {
-                        fillColor: '#e0eee5',
-                        fillOpacity: 1,
-                        color: '#e0eee5',
-                        weight: 0
-                    }
-
-                }).addTo(map);
-
-
-                // Zoom automatisk til Danmark
-                map.fitBounds(danmark.getBounds(), {
-                    padding: [20, 20]
-                });
-
-
-                // Byer
-                const cities = [
-
-                    {
-                        name: "Aarhus",
-                        lat: 56.1629,
-                        lon: 10.2039,
-                        text: "Her ligger Aarhus."
-                    },
-
-                    {
-                        name: "Aabenraa",
-                        lat: 55.0443,
-                        lon: 9.4174,
-                        text: "Her ligger Aabenraa."
-                    },
-
-                    {
-                        name: "Odense",
-                        lat: 55.4038,
-                        lon: 10.4024,
-                        text: "Her ligger Odense."
-                    },
-
-                    {
-                        name: "København",
-                        lat: 55.6761,
-                        lon: 12.5683,
-                        text: "Her ligger København."
-                    },
-
-                    {
-                        name: "Rønne",
-                        lat: 55.1000,
-                        lon: 14.7066,
-                        text: "Her ligger Rønne på Bornholm."
-                    },
-
-                    {
-                        name: "Gudhjem",
-                        lat: 55.2100,
-                        lon: 14.9710,
-                        text: "Her ligger Gudhjem."
-                    },
-
-                    {
-                        name: "Charlottenlund",
-                        lat: 55.7525,
-                        lon: 12.5760,
-                        text: "Her ligger Charlottenlund."
-                    },
-
-                    {
-                        name: "Roskilde",
-                        lat: 55.6415,
-                        lon: 12.0803,
-                        text: "Her ligger Roskilde."
-                    }
-
-                ];
-
-
-                // Tilføj byerne
-                cities.forEach(city => {
-
-                    const marker = L.circleMarker(
-                        [city.lat, city.lon],
-                        {
-                            radius: 7,
-                            fillColor: '#82ae85',
-                            color: '#ffffff',
-                            weight: 2,
-                            fillOpacity: 1
-                        }
-                    ).addTo(map);
-
-
-                    // Tooltip ved hover
-                    marker.bindTooltip(
-                        `<strong>${city.name}</strong><br>${city.text}`,
-                        {
-                            direction: 'top',
-                            offset: [0, -8]
-                        }
-                    );
-
-                });
-
-            })
-
-            // Hvis noget går galt
-            .catch(error => {
-
-                console.error("Fejl:", error);
-
-                document.getElementById('map').innerHTML = `
-                    <div style="
-                        padding: 30px;
-                        font-family: Arial, sans-serif;
-                        color: #b42318;
-                    ">
-                        <strong>Kunne ikke indlæse kortet.</strong><br>
-                        ${error.message}
-                    </div>
-                `;
-            });
-
-    </script>
-
-</body>
+<main>
+    <footer class="color-bar">
+        <nav class="menu">
+            <a href="./index.html">Forside</a>
+            <a href="./cv.html">CV</a>
+            <a href="./projekter.html">Projekter</a>
+            <a href="./om-mig.html">Om mig</a>
+        </nav>
+    </footer>
+</main>
 </html>

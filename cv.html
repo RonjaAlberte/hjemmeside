@@ -1,1 +1,374 @@
-<h1>Hej!</h1>
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+    
+    <title>CV</title>
+
+    <nav class="menu">
+        <a href="./index.html">Forside</a>
+        <a href="./cv.html">CV</a>
+        <a href="./projekter.html">Projekter</a>
+        <a href="./om-mig.html">Om mig</a>
+    </nav>
+
+</head>
+
+<body>
+    <section class="kort-sektion">
+        
+        <!-- Leaflet -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        >
+
+        <div id="map"></div>
+
+        <!-- Leaflet -->
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+        </script>
+
+
+        <script>
+
+            // --------------------------------
+            // Opret kort
+            // --------------------------------
+
+            const map = L.map('map', {
+                zoomControl: false,
+                dragging: false,
+                scrollWheelZoom: false,
+                doubleClickZoom: false,
+                boxZoom: false,
+                keyboard: false,
+                touchZoom: false,
+                attributionControl: false
+            });
+
+            // Hent GeoJSON-filen
+            fetch('data/map.geojson')
+                .then(response => {
+
+                    if (!response.ok) {
+                        throw new Error(
+                            `Kunne ikke finde map.geojson (${response.status})`
+                        );
+                    }
+
+                    return response.json();
+                })
+
+                .then(data => {
+
+                    console.log("GeoJSON indlæst:", data);
+
+
+                    // Tegn Danmark
+                    const danmark = L.geoJSON(data, {
+
+                        style: {
+                            fillColor: '#e0eee5',
+                            fillOpacity: 1,
+                            color: '#e0eee5',
+                            weight: 0
+                        }
+
+                    }).addTo(map);
+
+
+                    // Zoom automatisk til Danmark
+                    map.fitBounds(danmark.getBounds(), {
+                        padding: [20, 20]
+                    });
+
+
+                    // Byer
+                    const cities = [
+
+                        {
+                            name: "Aarhus",
+                            lat: 56.1629,
+                            lon: 10.2039,
+                            text: "Gravercentret og underviser på DMJX",
+                            target: "aarhus"
+                        },
+
+                        {
+                            name: "Aabenraa",
+                            lat: 55.0443,
+                            lon: 9.4174,
+                            text: "DR - P4 Syd & Esbjerg",
+                            target: "dr"
+                        },
+
+                        {
+                            name: "Esbjerg",
+                            lat: 55.4765,
+                            lon: 8.4594,
+                            text: "DR - P4 Syd & Esbjerg",
+                            target: "dr"
+                        },
+
+                        {
+                            name: "Odense",
+                            lat: 55.4038,
+                            lon: 10.4024,
+                            text: "Cand. Scient i Data Science",
+                            target: "odense"
+                        },
+
+                        {
+                            name: "København",
+                            lat: 55.6761,
+                            lon: 12.5683,
+                            text: "Fremantle og DarkSight Analytics",
+                            target: "strong"
+                        },
+
+                        {
+                            name: "Rønne",
+                            lat: 55.1000,
+                            lon: 14.7066,
+                            text: "DR Bornholm",
+                            target: "dr"
+                        },
+
+                        {
+                            name: "Hørsholm",
+                            lat: 55.8800,
+                            lon: 12.5000,
+                            text: "Handicaphjælper fra 2015-2019"
+
+                        },
+
+                        {
+                            name: "Roskilde",
+                            lat: 55.6415,
+                            lon: 12.0803,
+                            text: "Bartender fra 2012-2015"
+                        }
+
+                    ];
+
+                    cities.forEach(city => {
+
+                        const marker = L.circleMarker(
+                            [city.lat, city.lon],
+                            {
+                                radius: 7,
+                                fillColor: '#82ae85',
+                                color: '#ffffff',
+                                weight: 2,
+                                fillOpacity: 1
+                            }
+                        ).addTo(map);
+
+
+                        // Tooltip ved hover
+                        marker.bindTooltip(
+                            city.text
+                                ? `<strong>${city.name}</strong><br>${city.text}`
+                                : `<strong>${city.name}</strong>`,
+                            {
+                                direction: 'top',
+                                offset: [0, -8]
+                            }
+                        );
+
+                        // Forstør og skift farve ved hover
+                        marker.on('mouseover', function () {
+                            marker.setRadius(9);
+
+                            marker.setStyle({
+                                fillColor: '#ffffff',
+                                color: '#82ae85',
+                                weight: 2,
+                                fillOpacity: 1
+                            });
+                        });
+
+                        // Gå tilbage til normal størrelse og farve
+                        marker.on('mouseout', function () {
+                            marker.setRadius(7);
+
+                            marker.setStyle({
+                                fillColor: '#82ae85',
+                                color: '#ffffff',
+                                weight: 2,
+                                fillOpacity: 1
+                            });
+                        });
+
+                        // Scroll til relevant sektion ved klik
+                        marker.on('click', function () {
+
+                            const section = document.getElementById(city.target);
+
+                            if (section) {
+                                section.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+
+                        });
+                    });
+
+                })
+
+                // Hvis noget går galt
+                .catch(error => {
+
+                    console.error("Fejl:", error);
+
+                    document.getElementById('map').innerHTML = `
+                        <div style="
+                            padding: 30px;
+                            font-family: Arial, sans-serif;
+                            color: #b42318;
+                        ">
+                            <strong>Kunne ikke indlæse kortet.</strong><br>
+                            ${error.message}
+                        </div>
+                    `;
+                });
+
+        </script>
+
+    </section>
+
+<section class="timeline">
+
+    <div class="timeline-item">
+
+        <div class="timeline-date">
+            jun 2026 – aug 2026
+        </div>
+
+        <div class="timeline-dot"></div>
+        <section id="strong">
+
+            <div class="timeline-content">
+                <h2>OSINT-analyst (praktik)</h2>
+                <h3>DarkSight Analytics</h3>
+
+                <p>
+                    De sidste to måneder har jeg dykket ned i OSINT med mentorskab fra Valdemar Balle, 
+                    hvor jeg har efterforsket kriminelle netværk på sociale medier og gjort brug 
+                    af min erfaring med webscraping, dataanalyse og research.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="timeline-item">
+
+        <div class="timeline-date">
+            feb 2026 – jun 2026
+        </div>
+        <div class="timeline-dot"></div>
+
+        <section id="aarhus">
+            <div class="timeline-content">
+                <h2>Gæsteunderviser og eksaminator</h2>
+                <h3>Danmarks Medie- og Journalisthøjskole</h3>
+
+                <p>
+                    I forårssemestret har jeg stået for en datavisualiserings-workshop i Python
+                    for de internationale kandidatstuderende på Erasmus Mundusforløbet.<br>
+                    Her lærte jeg de studerende at lave interaktive grafikker, der engagerer og vedrører modtageren,
+                    og har derudover givet eksamensvejledning og karakterer for deres afsluttende webdocs.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+
+    <div class="timeline-item">
+
+        <div class="timeline-date">
+            aug 2025 – jan 2026
+        </div>
+
+        <div class="timeline-dot"></div>
+
+        <div class="timeline-content">
+            <h2>Datajournalist</h2>
+            <h3>Gravercentret – Danmarks Center for Undersøgende Journalistik</h3>
+
+            <p>
+                Hos Gravercentret udvidede jeg mit specialeprojekt, der bestod af en automatisk scraping af alle
+                kommuner og regioners hjemmesider, udviklingen af en sprogmodel, der gav korte referater af
+                politiske møder og dagsordener, opsætning af en avanceret database og til sidst design og opsætning
+                af en hjemmeside med flere interaktive moduler, der giver journalister mulighed for selv at
+                filtrere, dykke ned i og finde historier i dataet.<br><br>
+                <a target="_blank" rel="noopener noreferrer" href="https://demokratiportalen.gravercentret.dk/">Se demokratiportalen her.</a>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="timeline-item">
+
+        <div class="timeline-date">
+            aug 2024 – jul 2025
+        </div>
+
+        <div class="timeline-dot"></div>
+        <section id="strong">
+
+            <div class="timeline-content">
+                <h2>Studentemedhjælper, Data Scientist</h2>
+                <h3>Fremantle (Blu & Strong Productions)</h3>
+
+                <p>
+                    Som studentermedhjælper i programudviklingen hos Blu og Strong Productions havde jeg ansvar
+                    for at etablere en databaseret tilgang til idégenerering. <br>
+                    Det indførte jeg blandt andet gennem forskellige statistiske analyser, som f.eks. segment- og trendanalyser.
+                    Derudover lavede jeg koder til automatisering af rugbrødsopgaver.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="timeline-item">
+
+        <div class="timeline-date">
+            aug 2019 – dec 2022
+        </div>
+
+        <div class="timeline-dot"></div>
+        <section id="dr">
+
+            <div class="timeline-content">
+                <h2>Journalist</h2>
+                <h3>DR</h3>
+
+                <p>
+                    Med tre og et halvt års erfaring som journalist på henholdsvis DR Syd og DR Bornholm, 
+                    har jeg suget til mig af kompetencer indenfor journalistisk formidling i form af bl.a. 
+                    reportage og kort, effektiv og præcis nyhedsformidling.<br><br>
+                    Som jourhavende har jeg finpudset mine evner til at tage selvstændige 
+                    redaktionelle beslutninger og holde det forkromede overblik over redaktionens opgaver, 
+                    når ansvaret for den samlede tilstedeværelse i radioen og på dr.dk lå hos mig.
+                </p>
+            </div>
+        </section>
+    </div>
+</section>
+</body>

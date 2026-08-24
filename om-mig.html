@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allura:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+    
+    <title>Om mig</title>
+</head>
+
+<body>
+
+    <section class="hero">
+
+        <video id="hero-video" autoplay muted loop>
+            <source src="./video.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-overlay"></div>
+
+        <nav class="hero-menu">
+            <a href="./index.html">Forside</a>
+            <a href="./cv.html">CV</a>
+            <a href="./projekter.html">Projekter</a>
+            <a href="./om-mig.html">Om mig</a>
+        </nav>
+
+        <div class="hero-text">
+            <h1>Ronja Solberg</h1>
+            <h2>journalist</h2>
+        </div>
+
+    </section>
+
+<div class="om-mig-tekst">
+    <p>Hej hej</p>
+    <p>Her sker der en masse</p>
+    <p>Se hvor kan du scrolle</p>
+    <p>og se andet tekst lige pludselig</p>
+    <p>og billedet fader</p>
+    <p>måske?</p>
+
+</div>
+
+</body>
+
+<script>
+
+const video = document.getElementById("hero-video");
+
+window.addEventListener("scroll", () => {
+
+    const scroll = window.scrollY;
+
+    const fadeDistance = 500;
+
+    const opacity = Math.max(
+        0,
+        1 - scroll / fadeDistance
+    );
+
+    video.style.opacity = opacity;
+
+});
+
+</script>
+
